@@ -14,11 +14,16 @@ import (
     "os"
 )
 
+type LineRecord struct {
+  counts    int
+  filenames []string
+}
+
 func main() {
-    counts := make(map[string]int)
-    files := os.Args[1:]
+    records := make(map[string]LineRecord)
+    files   := os.Args[1:]
     if len(files) == 0 {
-        countLines(os.Stdin, counts)
+        countLines(os.Stdin, "-", records)
     } else {
         for _, arg := range files {
             f, err := os.Open(arg)
@@ -26,21 +31,27 @@ func main() {
                 fmt.Fprintf(os.Stderr, "dup2: %v\n", err)
                 continue
             }
-            countLines(f, counts)
+            countLines(f, arg, records)
             f.Close()
         }
     }
-    for line, n := range counts {
-        if n > 1 {
-            fmt.Printf("%d\t%s\n", n, line)
+    for line, record := range records {
+        if record.counts > 1 {
+            fmt.Printf("%d\t%s\n", record.counts, line)
+            for _,filename := range record.filenames {
+                fmt.Printf("\t%s\n", filename)
+            }
         }
     }
 }
 
-func countLines(f *os.File, counts map[string]int) {
+func countLines(f *os.File, filename string, records map[string]LineRecord) {
     input := bufio.NewScanner(f)
     for input.Scan() {
-        counts[input.Text()]++
+        record := records[input.Text()]
+        record.counts++
+        record.filenames = append(record.filenames, filename)
+        records[input.Text()] = record
     }
     // NOTE: ignoring potential errors from input.Err()
 }
