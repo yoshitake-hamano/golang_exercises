@@ -1,0 +1,66 @@
+[
+    {
+        "ID": "stdout",
+        "Config": {
+            "Message": "Starting..."
+        }
+    },
+    {
+        "ID": "stdout",
+        "Config": {
+            "Message": "Finished..."
+        }
+    },
+    {
+        "ID": "stdin",
+        "Config": {
+        }
+    },
+    {
+        "ID": "hello",
+        "Config": {
+        }
+    },
+    {
+        "ID": "sleep3",
+        "Config": {
+            "SleepSeconds": 3
+        }
+    },
+    {
+        "ID": "sleep5",
+        "Config": {
+            "SleepSeconds": 5
+        }
+    },
+    {
+        "ID": "times3",
+        "Config": {
+            "Times": 3
+        }
+    },
+    {
+        "ID": "times5",
+        "Config": {
+            "Times": 5
+        }
+    },
+    {
+        "ID": "regexp_foo",
+        "Config": {
+            "Regexp": "foo"
+        }
+    },
+    {
+        "ID": "solenoid",
+        "Config": {
+            "Port": "/dev/ttyUSB0"
+        }
+    },
+    {
+        "ID": "button",
+        "Config": {
+            "Port": "/dev/ttyACM0"
+        }
+    }
+]
